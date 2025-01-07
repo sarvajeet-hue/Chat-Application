@@ -1,10 +1,13 @@
 const express = require('express');
 const { database } = require('./config/config');
+const { router } = require('./routes/router');
 const app = express()
 
-
+app.use(express.json())
 database();
 
+
+app.use('/api/v1' , router)
 
 
 const PORT = 3000;
