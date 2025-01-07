@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 
 export const Login = () => {
 
     const {handleSubmit , register}  = useForm()
     const [formData , setFormData] = useState({})
+    const navigate = useNavigate()
+    
 
     function onSubmitForm(data){
         setFormData(data)
@@ -16,7 +19,7 @@ export const Login = () => {
 
   return (
     <div>
-        <form onSubmit={handleSubmit(onSubmitForm)} >
+        <form className='flex items-center justify-center flex-col border bg-gray-300 p-3 rounded-lg' onSubmit={handleSubmit(onSubmitForm)} >
             <label htmlFor='username'>
                 Username
             </label>
@@ -33,6 +36,8 @@ export const Login = () => {
                 Submit
             </button>
         </form>
-    </div>
+
+        <p>Don't have a Account <button onClick={() => navigate('/')}  className='flex items-center justify-center rounded-md p-2'>Register </button> </p>
+    </div> 
   )
 }
