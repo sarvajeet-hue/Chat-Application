@@ -1,5 +1,8 @@
 const  registerModel  = require("../model/Register");
 const bcrypt = require('bcrypt')
+
+
+
 const registerController = async(req, res) => {
   try {
     const { username, password } = req.body;
@@ -10,6 +13,13 @@ const registerController = async(req, res) => {
       });
     }
 
+    const existedUser = await registerModel.findOne({username})
+
+    if(existedUser){
+        return res.status(302).json({
+            message : "User ALready Registered"
+        })
+    }
 
     let hashPassword ; 
     try {
