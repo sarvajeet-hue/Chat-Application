@@ -3,6 +3,7 @@ import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { Route, Routes } from 'react-router-dom'
 import { Chatsection } from './components/ChatSection'
+import { PrivateRoute } from './Authentication/PrivateRoute'
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
 
         <Route path='/' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/chatSection' element={<Chatsection/>}  />
+        <Route path='/chatSection' element={<PrivateRoute element={<Chatsection/>}/>}  />
       </Routes>
       
 
