@@ -10,7 +10,7 @@ function App() {
   
 
   return (
-    <div className='flex items-center justify-center w-screen h-screen'>
+    <div className=' w-screen h-screen'>
       
       
       
@@ -18,7 +18,8 @@ function App() {
 
         <Route path='/' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/chatSection' element={<PrivateRoute element={<Chatsection/>}/>}  />
+        {/* <Route path='/chatSection' element={<PrivateRoute element={<Chatsection/>}/>}  /> */}
+        <Route path='Chatsection' element={<Chatsection/>} />
       </Routes>
       
 

@@ -35,15 +35,15 @@ export const Login = () => {
                 Username
             </label>
 
-            <input className='border-black border rounded-md'  id='username' type="email" name = "username" {...register('username')}  />
+            <input className='border-black border rounded-md p-2' placeholder='Enter Your Username'  id='username' type="email" name = "username" {...register('username')}  />
 
             <label htmlFor='password'>
-                password
+                Password
             </label>
 
-            <input className='border-black border rounded-md'  id='password' type="password" name = "password" {...register('password')}  />
+            <input className='border-black border rounded-md p-2' placeholder='Enter Your Password'  id='password' type="password" name = "password" {...register('password')}  />
 
-            <button>
+            <button className='flex items-center justify-center px-2 py-1 border font-serif font-bold rounded-md text-white bg-blue-300 w-full mt-3'>
                 Submit
             </button>
         </form>
