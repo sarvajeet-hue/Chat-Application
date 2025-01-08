@@ -10,7 +10,7 @@ function App() {
   
 
   return (
-    <div className=' w-screen h-screen'>
+    <div className='w-screen bg-black h-screen'>
       
       
       
