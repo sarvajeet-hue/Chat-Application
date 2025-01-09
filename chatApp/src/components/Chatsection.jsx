@@ -29,9 +29,9 @@ export const Chatsection = () => {
 
   return (
     <div className="flex w-full pt-5 h-[70%] bg-blue-200 ">
-      <div className="w-[50%] border-black border">Contacts</div>
+      <div className="w-[30%] border-black border">Contacts</div>
 
-      <div className="w-[50%] flex items-start flex-col border border-black justify-between ">
+      <div className="w-[70%] flex items-start flex-col border border-black justify-between ">
         <div className="flex items-start flex-col gap-3 p-3">
           <h1>Messages</h1>
 
