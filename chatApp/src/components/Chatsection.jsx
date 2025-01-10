@@ -35,7 +35,7 @@ export const Chatsection = () => {
     webSocket.onmessage = async (event) => {
       try {
         let receivedMessage = event.data;
-        console.log("event.data" , event.data)
+        console.log("event.data", event.data);
 
         // If data is a Blob, convert it to text
         if (event.data instanceof Blob) {
@@ -58,25 +58,35 @@ export const Chatsection = () => {
       <div className="w-[30%] border-black border">Contacts</div>
 
       <div className="w-[70%] flex items-start flex-col border border-black justify-between ">
-        <div className="flex items-start flex-col gap-3 p-3">
-          <h1>Messages</h1>
+        <div className="flex items-start flex-col gap-3 p-3 w-[100%] overflow-visible">
+          <h1 >Messages</h1>
 
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-4 w-[100%] overflow-auto">
             {message.map((msg, index) => (
               <div
                 key={index}
-                className={`p-2 rounded ${
+                className={`max-w-[70%] p-3 rounded-lg text-sm ${
                   msg.type === "sent"
-                    ? "bg-blue-100 self-end"
-                    : "bg-red-600 self-start"
+                    ? "bg-blue-500 text-white self-end rounded-br-none" // Sent message
+                    : "bg-gray-200 text-black self-start rounded-bl-none" // Received message
                 }`}
               >
-                {msg.content}
+                <p className="font-bold font-serif">{msg.content}</p>
+                <span className="text-xs text-white mt-1 block text-right">
+                  {new Date().toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  {/* Timestamp */}
+                </span>
               </div>
             ))}
           </div>
         </div>
-        <form onSubmit={handleSubmit(sendMessage)} className="flex items-start justify-start gap-3 w-full p-3">
+        <form
+          onSubmit={handleSubmit(sendMessage)}
+          className="flex items-start justify-start gap-3 w-full p-3"
+        >
           <input
             name="message"
             className="border border-black rounded-md p-2 w-[70%]"
@@ -85,7 +95,7 @@ export const Chatsection = () => {
             {...register("message")}
           />
 
-          <button >
+          <button>
             <img src={message_Image} className="h-[40px] w-[40px]" alt="" />
           </button>
         </form>
