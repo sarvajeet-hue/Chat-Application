@@ -61,7 +61,7 @@ export const Chatsection = () => {
         <div className="flex items-start flex-col gap-3 p-3">
           <h1>Messages</h1>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             {message.map((msg, index) => (
               <div
                 key={index}
@@ -76,7 +76,7 @@ export const Chatsection = () => {
             ))}
           </div>
         </div>
-        <div className="flex items-start justify-start gap-3 w-full p-3">
+        <form onSubmit={handleSubmit(sendMessage)} className="flex items-start justify-start gap-3 w-full p-3">
           <input
             name="message"
             className="border border-black rounded-md p-2 w-[70%]"
@@ -85,10 +85,10 @@ export const Chatsection = () => {
             {...register("message")}
           />
 
-          <button onClick={handleSubmit(sendMessage)}>
+          <button >
             <img src={message_Image} className="h-[40px] w-[40px]" alt="" />
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
