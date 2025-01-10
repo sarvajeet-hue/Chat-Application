@@ -6,25 +6,51 @@ import { WEBSOCKETS_URL } from "../PrimaryUrl";
 
 export const Chatsection = () => {
   const [message, setMessage] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [ws, setWs] = useState(null);
-  const [value, setValue] = useState("");
 
-  async function handleMessage(data) {
+  async function sendMessage(data) {
     console.log("data", data);
+
+    const newMessage = { type: "sent", content: data.message };
     setMessage((prev) => {
-      return [...prev, data?.message];
+      return [...prev, newMessage];
     });
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(data.message); // Send the value in the input
+      reset();
+    } else {
+      console.error("WebSocket is not open");
+      reset();
+    }
   }
 
   useEffect(() => {
     const webSocket = new WebSocket(WEBSOCKETS_URL);
-    setWs(webSocket);
-    webSocket.onmessage = (event) => {
-      setMessage((prevMessages) => [...prevMessages, event.data]);
+
+    webSocket.onopen = () => {
+      console.log("WebSocket connection established");
     };
 
-    console.log("message", message);
+    webSocket.onmessage = async (event) => {
+      try {
+        let receivedMessage = event.data;
+        console.log("event.data" , event.data)
+
+        // If data is a Blob, convert it to text
+        if (event.data instanceof Blob) {
+          receivedMessage = await event.data.text();
+        }
+
+        const newMessage = { type: "received", content: receivedMessage }; // Tag as received
+        setMessage((prevMessages) => [...prevMessages, newMessage]);
+      } catch (error) {
+        console.error("Error parsing message:", error);
+      }
+    };
+    setWs(webSocket);
+
+    return () => webSocket.close();
   }, [message]);
 
   return (
@@ -36,9 +62,18 @@ export const Chatsection = () => {
           <h1>Messages</h1>
 
           <div className="flex flex-col gap-2">
-            {message.map((msg, index) => {
-              return <p key={index}>{msg}</p>;
-            })}
+            {message.map((msg, index) => (
+              <div
+                key={index}
+                className={`p-2 rounded ${
+                  msg.type === "sent"
+                    ? "bg-blue-100 self-end"
+                    : "bg-red-600 self-start"
+                }`}
+              >
+                {msg.content}
+              </div>
+            ))}
           </div>
         </div>
         <div className="flex items-start justify-start gap-3 w-full p-3">
@@ -50,7 +85,7 @@ export const Chatsection = () => {
             {...register("message")}
           />
 
-          <button onClick={handleSubmit(handleMessage)}>
+          <button onClick={handleSubmit(sendMessage)}>
             <img src={message_Image} className="h-[40px] w-[40px]" alt="" />
           </button>
         </div>
