@@ -16,6 +16,7 @@ export const Chatsection = () => {
     setMessage((prev) => {
       return [...prev, newMessage];
     });
+
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(data.message); // Send the value in the input
       reset();
