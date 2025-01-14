@@ -18,8 +18,8 @@ function App() {
 
         <Route path='/' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        {/* <Route path='/chatSection' element={<PrivateRoute element={<Chatsection/>}/>}  /> */}
-        <Route path='Chatsection' element={<Chatsection/>} />
+        <Route path='/chatSection' element={<PrivateRoute element={<Chatsection/>}/>}  />
+        {/* <Route path='Chatsection' element={<Chatsection/>} /> */}
       </Routes>
       
 

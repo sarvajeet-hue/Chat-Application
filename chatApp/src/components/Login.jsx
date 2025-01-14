@@ -3,12 +3,16 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { PRIMARY_URL } from '../PrimaryUrl'
+import { useDispatch, useSelector } from 'react-redux'
+import { setToken } from '../slices/loginSlice'
 
 export const Login = () => {
 
     const {handleSubmit , register}  = useForm()
     const [formData , setFormData] = useState({})
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {token} = useSelector((state) => state.loginReducers)
 
 
    async function onSubmitForm(data){
@@ -17,6 +21,7 @@ export const Login = () => {
             const response = await axios.post(`${PRIMARY_URL}/login` , data)
             console.log("response in login" , response)
             if(response){
+                dispatch(setToken(response?.data?.token))
                 navigate('/chatSection')
             }
         }catch(error){
@@ -25,11 +30,11 @@ export const Login = () => {
     
     }
     useEffect(() => {
-        console.log("formData" , formData)
-    } , [formData])
+        console.log("token" , token )
+    } , [token])
 
   return (
-    <div>
+    <div className='flex items-center justify-center w-full h-full'>
         <form className='flex items-center justify-center flex-col border bg-gray-300 p-3 rounded-lg' onSubmit={handleSubmit(onSubmitForm)} >
             <label htmlFor='username'>
                 Username
