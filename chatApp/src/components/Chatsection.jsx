@@ -67,14 +67,38 @@ export const Chatsection = () => {
   }, [message]);
 
   return (
-    <div className="w-full pt-5 h-[70%]">
+    <div className="w-full pt-5 h-full">
       <button onClick={handleLogout} className="font-bold text-white text-right">Logout</button>
-      <div className="flex w-full pt-5 h-[70%] bg-blue-200 ">
+      <div className="flex w-full pt-5 h-[70%] bg-blue-200 gap-5 ">
         <div className="w-[30%] border-black border">Contacts</div>
 
-        <div className="w-[70%] flex items-start flex-col border border-black justify-between ">
+        <div className="w-[60%] flex items-start flex-col border rounded-lg  border-black justify-between ">
           <div className="flex items-start flex-col gap-3 p-3 w-[100%] overflow-visible">
-            <h1>Messages</h1>
+            
+
+            {/* top of the message box */}
+            <div className="flex items-center justify-between">
+              {/* profile photo and name */}
+              <div className="flex items-center gap-2">
+                  <div className="rounded-full w-[40px] h-[40px] flex items-center justify-center bg-gray-500">
+                    <img src="" alt="" />
+                  </div>
+
+                  <div className="font-bold text-black text-lg font-serif">
+                    Krishna
+                  </div>
+              </div>
+
+                {/* calling and options parts */}
+              <div>   
+
+              </div>    
+            </div>
+
+            {/* this is for lining */}
+            <div className="w-full h-[1px] bg-black"> 
+
+            </div>
 
             <div className="flex flex-col gap-4 w-[100%] overflow-auto">
               {message.map((msg, index) => (
