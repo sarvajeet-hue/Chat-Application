@@ -69,21 +69,21 @@ export const Chatsection = () => {
   }, [message]);
 
   return (
-    <div className="w-full pt-5 h-full">
+    <div className="w-full p-5 h-screen ">
       <button
         onClick={handleLogout}
         className="font-bold text-white text-right"
       >
         Logout
       </button>
-      <div className="flex w-full pt-5 h-[80%] bg-blue-200 gap-5 p-4  ">
+      <div className="flex w-full bg-blue-200 gap-5 p-4 ">
         <div className="w-[30%] border-black border">Contacts</div>
 
-        <div className="w-[60%] h-full flex flex-col border rounded-lg  border-black justify-between p-3 ">
+        <div className="w-[60%] h-full flex flex-col flex-grow border rounded-lg  border-black justify-between p-3 ">
 
-          <div className="flex items-start flex-col gap-3 p-3 w-[100%] h-full ">
+          <div className="flex items-start flex-grow flex-col gap-3 p-3 w-[100%] h-full ">
             {/* header */}
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full ">
               {/* profile photo and name */}
               <div className="flex items-center gap-2">
                 <div className="rounded-full w-[40px] h-[40px] flex items-center justify-center bg-gray-500">
@@ -110,17 +110,17 @@ export const Chatsection = () => {
             </div>
 
             {/* this is for lining */}
-            <div className="w-full h-[1px] bg-black"></div>
+            <div className="w-full h-[1px]  bg-black"></div>
 
-            <div className="w-full h-full  ">
+            <div className="w-full h-full flex ">
               {/* message-box */}
-              <div className="flex-grow gap-4 flex-col overflow-y-auto p-4 bg-gray-100 w-full h-full rounded-lg ">
+              <div className="flex-grow flex flex-col overflow-y-auto p-4 gap-4 max-h-[70%] ">
                 {message.map((msg, index) => (
                   <div
                     key={index}
                     className={`max-w-[30%] p-3 rounded-lg text-sm ${
                       msg.type === "sent"
-                        ? "bg-blue-500 text-white text-end self-end rounded-br-none" // Sent message
+                        ? "bg-blue-500 text-white self-end rounded-br-none" // Sent message
                         : "bg-gray-200 text-black self-start rounded-bl-none" // Received message
                     }`}
                   >
