@@ -45,13 +45,16 @@ const loginController = async (req, res) => {
     let token;
     try {
       token = jwt.sign(options, "sarvajeet", {
-        expiresIn: "3d", // Use '3d' for more readable expiration time
+        expiresIn: "3d",
       });
       console.log("Token generated:", token);
 
-      // If you want to save the token to the database
       existedUser.token = token;
-      await existedUser.save();  // Save the token to the user in the database
+      await existedUser.save();
+
+
+
+      console.log("existed_user:" , existedUser)
     } catch (error) {
       console.log("Error while generating the token:", error);
       return res.status(500).json({
@@ -61,11 +64,10 @@ const loginController = async (req, res) => {
 
     console.log("Existed user after token assignment:", existedUser);
 
-    // Send the token in the response body as well as in the cookie
     res.cookie("token", token, { httpOnly: true }).status(200).json({
       message: "Logged in successfully",
       data: existedUser,
-      token: token, // Include the token in the response body
+      token: token,
     });
   } catch (error) {
     console.log("Error in login controller:", error);

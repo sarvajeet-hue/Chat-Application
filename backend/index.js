@@ -17,17 +17,21 @@ app.use("/api/v1", router);
 
 const PORT = 3000;
 
-wss.on("connection", (ws) => {
+wss.on("connection", (ws , req) => {
   console.log("new client connected");
 
   ws.on("message", (message) => {
     console.log(`message received : ${message}`);
     wss.clients.forEach((client) => {
+      
         if (client.readyState === websockets.OPEN) {
           client.send(message);
         }
       });
+     
   });
+
+
 
   
 
@@ -35,6 +39,14 @@ wss.on("connection", (ws) => {
     console.log("websockets connnection is closed");
   });
 });
+
+
+wss.on('connection' , (connection , req) => {
+  console.log("this is the new connection" ,req.headers)
+  
+
+}) 
+
 
 app.get("/", (req, res) => {
   res.send("<h1>ChatApp</h1>");
