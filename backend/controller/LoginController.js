@@ -51,10 +51,8 @@ const loginController = async (req, res) => {
 
       existedUser.token = token;
       await existedUser.save();
-
-
-
       console.log("existed_user:" , existedUser)
+      
     } catch (error) {
       console.log("Error while generating the token:", error);
       return res.status(500).json({
@@ -62,7 +60,6 @@ const loginController = async (req, res) => {
       });
     }
 
-    console.log("Existed user after token assignment:", existedUser);
 
     res.cookie("token", token, { httpOnly: true }).status(200).json({
       message: "Logged in successfully",

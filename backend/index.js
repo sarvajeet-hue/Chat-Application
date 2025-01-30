@@ -1,6 +1,6 @@
 const express = require("express");
 const { database } = require("./config/config");
-const { router } = require("./routes/router");
+const router = require("./routes/router");
 const jwt = require('jsonwebtoken')
 
 const app = express();
@@ -36,39 +36,13 @@ wss.on("connection", (ws , req) => {
   });
 
 
-
-  
-
   ws.on("close", (ws) => {
     console.log("websockets connnection is closed");
   });
 });
 
 
-wss.on('connection', (ws, req) => {
-  const urlParams = new URLSearchParams(req.url.split('?')[1]);
-  console.log("urlParams" , urlParams)
-  const token = urlParams.get('token');
-  console.log("req.headers" , req.headers)
 
-  if (!token) {
-    ws.send(JSON.stringify({ error: 'Authentication token is missing' }));
-    ws.close();
-    return;
-  }
-
-  try {
-    const decoded = jwt.verify(token, 'sarvajeet');
-    const username = decoded.username;
-    
-
-    console.log(`${username} connected`);
-  } catch (error) {
-    console.error('Token verification failed:', error);
-    ws.send(JSON.stringify({ error: 'Invalid token' }));
-    ws.close();
-  }
-});
 
 
 app.get("/", (req, res) => {

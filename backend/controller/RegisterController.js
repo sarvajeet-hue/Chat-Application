@@ -50,4 +50,27 @@ const registerController = async(req, res) => {
   }
 };
 
-module.exports = { registerController };
+
+
+
+
+const getAllRegisteredUser = async(req , res) => {
+  try {
+    const response = await registerModel.find({})
+
+    if(!response){
+      return res.status(400).json({
+        message : "NOT FOUND"
+      })
+    }
+
+    res.status(200).json({
+      message : "data fetched successfully",
+      data : response
+    })
+  }catch(err){
+    console.log("error" , err)
+  }
+}
+
+module.exports = {getAllRegisteredUser , registerController}
