@@ -8,7 +8,7 @@ export const PrivateRoute = ({element}) => {
     const Authentication = localStorage.getItem('token')
     if(!Authentication){
         console.log("authentication" , Authentication)
-        alert("Logged in First")
+        alert("first logged In Please..")
         return <Navigate to="/login" />
     }
   return element

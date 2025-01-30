@@ -12,18 +12,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const Chatsection = () => {
-  const [message, setMessage] = useState([]);
   const [registeredUser, setRegisteredUser] = useState([]);
   const { register, handleSubmit, reset } = useForm();
   const [ws, setWs] = useState(null);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.loginReducers);
   const navigate = useNavigate();
+  const [message, setMessage] = useState([]);
+  const [selectedUser , setSelectedUser] = useState(null);
 
   const handleLogout = () => {
     dispatch(clearToken(null));
     navigate("/login");
   };
+
+
 
   async function sendMessage(data) {
     const message = data.message.trim();
@@ -51,6 +54,8 @@ export const Chatsection = () => {
       const response = await axios.get(`${PRIMARY_URL}/allRegisteredUser`);
 
       setRegisteredUser(response?.data?.data);
+
+      setSelectedUser(response?.data?.data[0]?.username);
       if (!response) {
         console.log("response was not fetched");
       }
@@ -61,6 +66,7 @@ export const Chatsection = () => {
   }
   useEffect(() => {
     userNames();
+    
   }, []);
 
   useEffect(() => {
@@ -92,25 +98,25 @@ export const Chatsection = () => {
   }, [message]);
 
   return (
-    <div className="w-full pt-5 h-full">
+    <div className="w-11/12 mx-auto pt-5 h-full">
       <button
         onClick={handleLogout}
         className="font-bold text-white text-right"
       >
         Logout
       </button>
-      <div className="flex w-full pt-5 h-[80%] bg-blue-200 gap-5 p-4  rounded-lg ">
-        <div className="w-[30%] border-black border rounded-lg">
+      <div className="flex w-full pt-5 h-[80%] bg-transparent gap-5 p-4  rounded-lg ">
+        <div className="w-[30%] border-black border rounded-lg bg-white">
           <h1 className="text-center font-serif font-bold text-xl p-3">Registered Users</h1>
           <div className="flex flex-col gap-3 p-2">
             {registeredUser.map((data, index) => {
-              return <div className="flex items-center justify-center border p-2" key={index}>{data.username}</div>;
+              return <div onClick={() => setSelectedUser(data.username)} className="flex items-center cursor-pointer justify-center border p-2" key={index}>{data.username}</div>;
             })} 
           </div>
         </div>
 
         {/* grid grid-rows-[auto_1fr_auto] */}
-        <div className="w-[60%] h-full flex flex-col  gap-4  border rounded-lg border-black p-3">
+        <div className="w-[60%] h-full flex flex-col  gap-4  bg-white border rounded-lg border-black p-3">
           <div className="flex flex-col gap-3">
             {/* {/ Header Section /} */}
             <div className="flex items-center justify-between w-full p-3">
@@ -120,7 +126,7 @@ export const Chatsection = () => {
                   <img src="" alt="" />
                 </div>
                 <div className="font-bold text-black text-lg font-serif">
-                  Krishna
+                  {selectedUser}
                 </div>
               </div>
 
